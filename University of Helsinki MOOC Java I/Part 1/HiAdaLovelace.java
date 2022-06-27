@@ -6,6 +6,5 @@ public class HiAdaLovelace {
         
         System.out.println("Hi " + name + "!");
 
-
     }
 }
