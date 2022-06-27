@@ -17,6 +17,5 @@ public class ComparingNumbers {
             System.out.println(firstNumber + " is equal to " + secondNumber + ".");
         }
         
-
     }
 }
