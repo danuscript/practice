@@ -1,16 +1,20 @@
 function unique(arr) {
-  let uniqueStrings = [];
-  for (let i = 0; i < arr.length; i++) {
-    if (uniqueStrings.includes(arr[i]) == false) {
-      uniqueStrings.push(arr[i]);
-    } 
+  let set = new Set();
+  for (let value of arr) {
+    set.add(value);
   }
+  let uniquearr = [];
 
-  return uniqueStrings;
+  set.forEach((value, valueAgain, set) => {
+    uniquearr.push(value);
+  })
+
+  return uniquearr;
+
 }
 
-let strings = ["Hare", "Krishna", "Hare", "Krishna",
+let values = ["Hare", "Krishna", "Hare", "Krishna",
   "Krishna", "Krishna", "Hare", "Hare", ":-O"
 ];
 
-console.log( unique(strings) ); 
+console.log(unique(values));
