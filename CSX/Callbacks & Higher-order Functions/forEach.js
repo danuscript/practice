@@ -1,39 +1,46 @@
 //PART 1
-//expected inputs: array, callback function
-//expected output: N/A
+//expected input(s): array, callback function
+//expected output(s): N/A
+//expected result(s): use each element of array as argument of callback function
 
-//for each element in array, use as argument in callback function
 function forEach(array, callback) {
-    //loop through each element of array
+
+    //loop through each element of array:
     for (let i = 0; i < array.length; i++) {
-        //use element as argument of callback 
-        callback(array[i]);
+
+        //use element as argument of callback function:
+        callback(array[i])
     }
 }
 
-// PART 2
-// expected input(s): array of numbers, callback function
-// expected output(s): new array
+//PART 2
+//expected input(s): array, callback function
+//expected output(s): new array
+/*expected result(s): for each element of input array, push the result of using the callback
+function on the element into the new output array */
 
 function map(array, callback) {
-    //declare a new array 
+    //declare a new array:
     let finalArray = [];
 
-    //declare a function that pushes result of callback into the new array
-    function pusher(element) {
-        //push result of running callback on element
-        finalArray.push(callback(element))
+    //declare a function to push the result of callback function into the new array:
+    function pusher(argument) {
+        finalArray.push(callback(argument));
     }
 
-    //loop through each element of array and run pusher
+    //use each argument of input array as the argument of pusher array:
     forEach(array, pusher);
-
+    
+    //return the new array:
     return finalArray;
 
 }
 
-
-console.log(typeof forEach);
+//forEach([array], callback function)
+//for each element in array, use element as argument of the callback function: console.log()
 forEach(['a', 'b', 'c'], i => console.log(i)); 
-console.log(typeof map);
+
+//map([array], callback function)
+/*for each element in array, push the result of using that element as the argument of the
+callback function (n - 2) into the a new array */
 console.log(map([3, 4, 5], n => n - 2));
