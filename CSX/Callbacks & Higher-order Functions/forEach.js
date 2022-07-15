@@ -42,5 +42,5 @@ forEach(['a', 'b', 'c'], i => console.log(i));
 
 //map([array], callback function)
 /*for each element in array, push the result of using that element as the argument of the
-callback function (n - 2) into the a new array */
+callback function (n - 2) into the a new array, then return it*/
 console.log(map([3, 4, 5], n => n - 2));
