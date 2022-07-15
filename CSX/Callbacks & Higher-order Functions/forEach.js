@@ -33,7 +33,6 @@ function map(array, callback) {
     
     //return the new array:
     return finalArray;
-
 }
 
 //forEach([array], callback function)
