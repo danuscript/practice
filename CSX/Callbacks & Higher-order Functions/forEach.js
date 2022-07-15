@@ -6,7 +6,7 @@
 function forEach(array, callback) {
     //loop through each element of array
     for (let i = 0; i < array.length; i++) {
-        //run the callback function on each element of the array
+        //use element as argument of callback 
         callback(array[i]);
     }
 }
