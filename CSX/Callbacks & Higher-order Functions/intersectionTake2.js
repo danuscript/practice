@@ -1,116 +1,42 @@
-//const intersection = ([...xss]) => xss.reduce((xs, ys) => xs.filter(x => ys.includes(x))); 
+//INTERSECTION
 
-//expected input: array of indefinite arrays
-//expected result: 
-//expected output: single array
+//expected inputs: array of indefinite arrays
+//expected results: create an array containing only elements included in all arrays
+//expected output: one single array
 
-//declare a function with an single argument - an array of indefinite arrays:
-function intersectionLogic(arrays) {
-  
-  //accumulator = starting as first array
-  let accumulator = arrays.pop();
+//strategy: use reduce to iterate through array of arrays, filtering each array through the previous commonArray
 
-  //loop through array of arrays
-  while (arrays.length) {
-    
-    //pop another array off of arrays and set it as the currentArray 
-    const currentArr = arrays.pop()
+//declare a function "intersection" with a paramenter "arrays" being an array of arrays:
+function intersection(arrays) {
 
-    //declare an empty, new array
-    const newArr = [];
+  //implement reduce
+  //commonArray == arrays[0] (the first one in the arrayOfArrays, for now)
+  //currentArray == arrays[1] (the second arrayOfArrays, for now)
+  return arrays.reduce((commonArray, currentArray) => {
+    //create a local array within the scope of reduce's callback function
+    let localArray = [];
 
-    //compare currentArray with accumulator
-    //for each element in currentArray
-    currentArr.forEach((element) => {
+    //iterate through each element of currentArray
+    currentArray.forEach(element => {
 
-      //if that element exists in accumulator
-      if(accumulator.includes(element)) {
-      
-      //push that element into newArray
-      newArr.push(element);
+      //if element is found in commonArray
+      if (commonArray.includes(element)) {
 
+        //push it into localArray
+        localArray.push(element)
       }
     })
+    //return localArray, assigning it's value to commonArray
+    return localArray;
     
-    //reassign accumulator to newArray
-    accumulator = newArr;
+    //restart the loop
+  })
 
-    //repeat while loop for next available array in arrays
-  }      
-  //return accumulator
-  return accumulator
+  //commonArray, after being whittled down by each element in arrayOfArrays, is now returned
+  //it is the intersection of all arrays
 }
 
 const arr1 = [5, 10, 15, 20, 3];
 const arr2 = [15, 88, 3, 1, 5, 7];
 const arr3 = [1, 10, 15, 5, 20];
-console.log(intersectionLogic([arr1, arr2, arr3])); // should log: [5, 15]
-
-
-//USING REDUCE
-
-//reduce(anonymousfunction(previousValue, currentValue), initialValue => { callbackFn })
-//initialValue is optional
-//previousValue == array[0], unless intialValue is specified (then it's initialValue)
-//previousValue becomes the result of previous call to callbackFn
-//PREVIOUSVALUE IS ALSO CALLED ACCUUMULATOR
-//currentValue == array[1], unless initialValue is specified (then it's array[0])
-//currentValue moves to the next array index after completing one loop
-//at the end, reduce returns currentValue
-
-//STRATEGY:
-
-// implement reduce on array of arrays
-// return arrayOfArrays.reduce(accumulator, currentArray) => {callbackFn}
-// accumulator will start off as arrayOfArrays[0], which is an array
-// currentArray will start off as arrayOfArrays[1], which is an array
-// callbackFn will return a new array containing only common elements of the accumulator and currentArray
-// callbackFn will create this new array from scratch
-// callbackFn will use .forEach and .includes() to compare elements of arrayOfArrays[0] and arrayOfArrays[1], pushing common ones into newArray:
-// => {currentArr.forEach((element) => { if (accumulator.includes(element)) newArray.push(element)}}) return newArray;
-// at the end, callbackFn has returned newArray
-// returning newArray will set the value of accumulator to this newArray, which contains only elements common in the first two arrayOfArrays arrays
-// now, reduce iterates to the next index in arrayOfArrays
-// accumulator is the returned result newArray
-// currentArray is now arrayOfArrays[2] instead of arrayOfArrays[1]
-// reduce will invoke the callbackFn again
-// callbackFn creates a new array
-// callbackFn uses forEach and inlcudes() to evaluate each element of current array to see if accumulator includes it
-// callbackFn will then once again push included values into newArray, and return this array to be the new value of accumulator
-// reduce continues this until all elements of arrayOfArrarys have been iterated through
-// finally, reduce returns accumulator
-
-
-
-//declare a function with an single argument - an array of indefinite arrays:
-function intersection(arrays) {
-  
-  //accumulator = starting as first array
-  //loop through array of arrays
-  //pop another array off of arrays and set it as the currentArray 
-  return arrays.reduce((accumulator, currentArr) => {
-    
-    //declare an empty, new array
-    let newArray = [];
-
-    //compare currentArray with accumulator
-    //for each element in currentArray
-    currentArr.forEach((element) => {
-
-      //if that element exists in accumulator
-      if (accumulator.includes(element)) {
-
-        //push that element into newArray
-        newArray.push(element);
-      }
-    })a
-
-    //reassign accumulator to newArray
-    return newArray;
-
-    //repeat while loop for next available array in arrays
-  })
-
-  //return accumulator
-}
 console.log(intersection([arr1, arr2, arr3])); // should log: [5, 15]
