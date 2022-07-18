@@ -19,9 +19,9 @@ function once(cb) {
   let hasBeenCalled = false;
   let firstAnswer = null;
 
-  function oncedCb(input) {
+  function oncedCb(...input) {
     if (!hasBeenCalled) {
-      firstAnswer = cb(input);
+      firstAnswer = cb(...input);
       hasBeenCalled = true;
       return firstAnswer;
     } else if (hasBeenCalled) {
