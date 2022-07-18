@@ -1,8 +1,8 @@
-const num = 3;
-function multiplyBy2(inputNumber) {
-    const result = inputNumber * 2;
-    return result;
+const myFunction = createFunction();
+
+function createFunction() {
+    let sayHi = () => "hello world";
+    return sayHi;
 }
 
-const output = multiplyBy2(num);
-const newOutput = multiplyBy2(10);
+console.log(myFunction());
