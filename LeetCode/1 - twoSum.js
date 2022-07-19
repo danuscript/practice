@@ -26,6 +26,8 @@ function twoSum1(arr, tar) {
 
 //console.log(twoSum1([3, 3], 6))
 
+//---------------------------------------
+
 // APPROACH #2 (two-pass hash table)
 
 // example array: [3, 5, 1, 4, -8];
@@ -115,27 +117,33 @@ function twoSum1(arr, tar) {
 function twoSum(arr, tar) {
 
     // declare a new hash map
-    let obj = {}
+    let hash = new Map;
 
     //iterate through array
     for (let i = 0; i < arr.length; i++) {
 
-        //check map for correct answer: (target - current value)
-        if (obj.hasOwnProperty([tar - arr[i]])) {
+        // establish currentValue
+        let curr = arr[i];
 
-            //if it exists, return an array with the indices of current value and correct answer:
-            return [i, obj[tar - arr[i]]];
+        // establish complement
+        let comp = (tar - curr)
+
+        // check map for correct answer: (target - current value)
+        if (hash.has(comp)) {
+
+            // if it exists, return an array with the indices of current value and correct answer:
+            return [i, hash.get(comp)];
 
         // if it doesn't exist
         } else {
 
             // push current value and its index into hash map
-            obj[arr[i]] = i;
+            hash.set(curr, i);
         }
     }
 
     // if no solution is found, return null
-    return null;
+    return hash;
 }
 
 console.log(twoSum([2, 7, 11, 15], 9))
