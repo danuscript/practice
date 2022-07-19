@@ -42,7 +42,6 @@
 // arr9: 4, 3, 2, 1, 0
 // arr10: 5, 4, 3, 2, 1, 0
 
-
 function generate(numRows) {
     
 
