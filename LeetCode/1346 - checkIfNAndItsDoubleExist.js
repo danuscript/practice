@@ -30,10 +30,11 @@ var checkIfExist = function (arr) {
       
       // return true
       return true;
-
+      
+    // otherwise,
     } else {
 
-      // otherwise, store this number in hash table
+      // store this number in hash table
       hash.add(arr[i]);
     }
   }
