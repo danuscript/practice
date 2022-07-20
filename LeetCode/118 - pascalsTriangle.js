@@ -123,8 +123,6 @@ function generate0(numRows) {
 
 console.log(generate0(6))
 
-console.log(generate0(5))
-
 // time to write: 1 hour and 41 minutes
 
 // ------------------------------------------------------------------
