@@ -66,4 +66,4 @@ function numMatchingSubseq(s, arr) {
 
 console.log(numMatchingSubseq("abcde", ["a", "bb", "acd", "ace", "xyz", "yuzde", "ayz"]))
 
-// 
+// time to write: 39 minutes
