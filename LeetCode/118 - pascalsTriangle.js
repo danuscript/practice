@@ -1,7 +1,7 @@
 // expected input: integer
 // expected output: array of arrays
 
-// approach:
+// APPROACH 1:
 // construct a function "generate" with the parameter "numRows"
 //   declare a new array
 //   set up a function to pascalize number
@@ -42,7 +42,9 @@
 // arr9: 4, 3, 2, 1, 0
 // arr10: 5, 4, 3, 2, 1, 0
 
-function generate(numRows) {
+// time complexity: O(n^3)
+
+function generate0(numRows) {
     
 
   // base cases:
@@ -119,9 +121,79 @@ function generate(numRows) {
   return pascalArrs;
 }
 
-console.log(generate(6))
+console.log(generate0(6))
 
-console.log(generate(5))
+console.log(generate0(5))
 
 // time to write: 1 hour and 41 minutes
+
+// ------------------------------------------------------------------
+
+// PASCAL'S TRIANGLE
+
+// expected input: number
+// expected output: array of arrays
+
+// row 0: 1
+// row 1: 1  1
+// row 2: 1  2  1
+// row 3: 1  3  3  1
+// row 4: 1  4  6  4  1
+
+// approach: dynamic programming
+
+// optimal substructure: information from previous rows feeds into current rows
+
+// overlapping subproblems: each number feeds into multiple other numbers
+
+// base cases: 
+// starting row of triangle equals [1]
+// starting number of each row == 1
+// ending number of each row == 1
+
+// recurrence relation: 
+// every element (triangle[row][col]) is equal to the sum of 
+// the above element (triangle[row - 1][col])
+// and the element to the left of that (triangle [row - 1][col - 1])
+
+// time complexity: O(n^2)
+
+function generate(numRows) {
+  
+  // base case:
+  let triangle = [[1]];
+
+  // loop this operation from row 1 until desired row number
+  for (let row = 1; row < numRows; row++) {
+    
+    // initialize current row as an empty array
+    let currRow = [];
+
+    // define the previous row as the previous array in triangle
+    let prevRow = triangle[row - 1];
+
+    // base case: push 1 into the beginning of current row
+    currRow.push(1);
+
+    // for middle elements:
+    for (let col = 1; col < prevRow.length; col++) {
+
+      //recursive case:
+      currRow.push(prevRow[col] + prevRow[col - 1])
+    }
+
+    // base case: push 1 into the end of the current row
+    currRow.push(1);
+
+    // now that we're done building it, push current row into triangle
+    triangle.push(currRow)
+
+  }
+
+  // return the completed triangle
+  return triangle;
+
+}
+
+console.log(generate(6));
 
