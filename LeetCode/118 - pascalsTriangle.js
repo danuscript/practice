@@ -187,13 +187,10 @@ function generate(numRows) {
 
     // now that we're done building it, push current row into triangle
     triangle.push(currRow)
-
   }
 
   // return the completed triangle
   return triangle;
-
 }
 
 console.log(generate(6));
-
