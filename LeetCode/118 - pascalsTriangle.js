@@ -121,8 +121,7 @@ function generate(numRows) {
 
 console.log(generate(6))
 
-// time to write: 1 hour and 41 minutes
-
 console.log(generate(5))
 
 // time to write: 1 hour and 41 minutes
+
