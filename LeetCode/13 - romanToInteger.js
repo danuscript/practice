@@ -7,7 +7,8 @@
 
 // approach 1: left-to-right pass with hash table
 
-// iterate through each character and determine whether we should:
+// create hash table with values of characters
+// iterate through each character in string and determine whether we should:
 //   add the numerical value and move to the next character
 //   add the difference of the next two characters and move forward two spots
 
@@ -58,6 +59,7 @@ function romanToInt0(str) {
 
 // approach 2: right-to-left pass with hash table
 
+// create hash table with values of characters
 // initialize the value at the last value, iterate backwards through string and:
 //   add the current value to the total if following number is lower
 //   subtract the current value from the total if following number is higher
