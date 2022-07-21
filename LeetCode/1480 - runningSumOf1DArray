@@ -15,6 +15,7 @@ function runningSum0(arr) {
 }
 
 // approach 2: each number in new array == sum of current number in original array and previous number in new array
+
 // populate a new array with arr[i] + new[i - 1] at each index i
 
 function runningSum(arr) {
