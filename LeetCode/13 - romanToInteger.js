@@ -21,7 +21,7 @@
 // else if next value is undefined
 //   add current value to total
 
-let rom = {
+let rom0 = {
   M: 1000,
   D: 500,
   C: 100,
@@ -44,10 +44,10 @@ function romanToInt0(str) {
     let next = str[i + 1];
 
     // begin the control flow
-    if (rom[next] == undefined || rom[curr] >= rom[next]) {
-      total += rom[curr];
-    } else if (rom[curr] < rom[next]) {
-      total += (rom[next] - rom[curr])
+    if (rom0[next] == undefined || rom0[curr] >= rom0[next]) {
+      total += rom0[curr];
+    } else if (rom0[curr] < rom0[next]) {
+      total += (rom0[next] - rom0[curr])
       i++
     }
   }
@@ -65,6 +65,16 @@ function romanToInt0(str) {
 //   subtract the current value from the total if following number is higher
 
 // return total
+
+let rom = {
+  M: 1000,
+  D: 500,
+  C: 100,
+  L: 50,
+  X: 10,
+  V: 5,
+  I: 1
+}
 
 function romanToInt(str) {
 
