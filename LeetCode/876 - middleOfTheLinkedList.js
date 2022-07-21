@@ -1,4 +1,4 @@
-// MIDDLE OF TEH LINKED LIST
+// MIDDLE OF THE LINKED LIST
 
 // expected input: linked list node 
 // expected output: linked list head
@@ -73,4 +73,31 @@ function middleNode(head) {
 
   // now, return the middle element of the array
   return arr[Math.trunc(arr.length/2)]
+}
+
+// approach 3: use a fast and a slow pointer
+
+// since the halfway point must be reached, 
+  // pointer "slow" moves one node at a time
+  // pointer "fast" moves two at a time
+// when pointer "fast" reaches the end, slow will be halfway through
+
+function middleNode(head) {
+
+  // declare fast and slow pointers
+  let fast = head;
+  let slow = head;
+
+  // loop through the list until fast reaches the end
+  while (fast && fast.next) {
+
+    // move fast pointer two spaces forward
+    fast = fast.next.next; 
+
+    // move slow pointer one node forward
+    slow = slow.next;
+  }
+
+  // when fast pointer finishes, return the slow one!
+  return slow;
 }
