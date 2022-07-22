@@ -49,7 +49,6 @@ function canConstruct(str1, str2) {
   }
   console.log({map2})
 
-
   // set up a boolean test and assume true
   let pass = true;
 
