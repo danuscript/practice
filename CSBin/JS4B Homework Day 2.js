@@ -48,15 +48,15 @@ const bossEnragedEx = function() {
   target.def = target.defaults.def;
   target.defaults.atk = target.defaults.atk * 1.25;
   target.atk = target.defaults.atk;
-  alert(`${target.name} is ENRAGED! DEF is lowered but ATK is raised...`)
+  alert(`${target.name} is ENRAGED! Physical DEF is lowered but ATK is raised...`)
 }
 
 const boss = {
   name: "BOSS",
-  hp: 100,
+  hp: 200,
   atk: 1.0,
   def: 1.0,
-  maxHp: 100,
+  maxHp: 200,
   mag: 1.0,
   multiplier: 1.0,
   fireDef: 1.10,
@@ -137,7 +137,7 @@ const bossDisruptEx = function() {
     
 \u00BB\u00BB\u2014\u2014\u235F\u2014\u2014\u00AB\u00AB
 
-${target.name} has broken ${player.name}'s raised defense. ${player.name}'s defense is back to ${player.def}.`);
+${target.name} has broken ${player.name}'s raised guard. ${player.name}'s physical DEF has dropped back to normal.`);
     delete player.statuses["currentlyGuarded"];
     return null;
   } else if (player.statuses["currentlyJeopardized"]) {
@@ -165,7 +165,7 @@ const bossShieldEx = function() {
 
 \u00BB\u00BB\u2014\u2014\u235F\u2014\u2014\u00AB\u00AB
     
-${target.name} is no longer jeopardized! Their defense is back to ${target.def}.`);
+${target.name} is no longer jeopardized! Their physical DEF is back up to normal.`);
     delete target.statuses["currentlyJeopardized"];
     return null;
   } else if (target.statuses["currentlyGuarded"]) {
@@ -262,7 +262,7 @@ const bossFlurry = {
   pin: 2,
   id: "flurry",
   name: "FLURRY",
-  action: "BOSS attacks in rapid succession!",
+  action: "BOSS hurls multiple attacks in rapid succession!",
   execute: bossFlurryEx
 }
 
@@ -688,7 +688,7 @@ function jeopardizer(character) {
       reducedDef = origDef * 0.9;
       character.def = reducedDef;
       counter++;
-      alert(`${character.name} is jeopardized! Their defense has been reduced to ${character.def}.`)
+      alert(`${character.name} is jeopardized! Their physical DEF has been reduced.`)
 
     } else if (counter >= 3) {
       delete character.statuses["currentlyJeopardized"];
@@ -697,12 +697,12 @@ function jeopardizer(character) {
       
 \u00BB\u00BB\u2014\u2014\u235F\u2014\u2014\u00AB\u00AB
 
-${character.name} is no longer jeopardized! Their defense has been restored to ${character.def}.`);
+${character.name} is no longer jeopardized! Their physical DEF has been restored to normal.`);
 
 
     } else {
       counter++;
-      alert(`${character.name} is still jeopardized... their defense is ${character.def}.`)
+      alert(`${character.name} is still jeopardized... their physical DEF is reduced.`)
     }
   }
   return jeopardized;
@@ -711,7 +711,7 @@ ${character.name} is no longer jeopardized! Their defense has been restored to $
 const jeopardizeEx = function() {
   if (target.statuses["currentlyGuarded"]) {
     target.def = target.defaults.def;
-    alert(`${player.name} has broken ${target.name}'s raised guard! ${target.name}'s defense is back to ${target.def}.`);
+    alert(`${player.name} has broken ${target.name}'s raised guard! ${target.name}'s physical DEF has dropped back to normal.`);
     delete target.statuses["currentlyGuarded"];
     return targetTurn();
   } else if (target.statuses["currentlyJeopardized"]) {
@@ -734,7 +734,7 @@ function guarder(character) {
       raisedDef = origDef * 2;
       character.def = raisedDef;
       counter++;
-      alert(`${character.name} put their guard up! Their defense has been raised to ${character.def}.`)
+      alert(`${character.name} put their guard up! Their physical DEF has been raised.`)
 
     } else if (counter === 1) {
       counter++;
@@ -745,7 +745,7 @@ function guarder(character) {
       
 \u00BB\u00BB\u2014\u2014\u235F\u2014\u2014\u00AB\u00AB
 
-${character.name} no longer has their guard up. Their defense is back to ${character.def}`)
+${character.name} no longer has their guard up. Their physical DEF is back to normal.`)
 
     }
   }
@@ -755,7 +755,7 @@ ${character.name} no longer has their guard up. Their defense is back to ${chara
 const guardEx = function() {
   if (player.statuses["currentlyJeopardized"]) {
     player.def = player.defaults.def;
-    alert(`By putting their guard up, ${player.name} is no longer JEOPARDIZED! Their defense is back up to ${player.def}`);
+    alert(`By putting their guard up, ${player.name} is no longer JEOPARDIZED! Their physical DEF is back up to normal.`);
     delete player.statuses["currentlyJeopardized"];
     return targetTurn();
   } else if (player.statuses["currentlyGuarded"]) {
@@ -925,8 +925,8 @@ function healthHeart(curr, max) {
 function hud() {
   let heart = healthHeart(player.hp, player.maxHp)
   let currentStatuses = ""
-  Object.keys(target.statuses).forEach(stat => currentStatuses = currentStatuses.concat(target.name + " " + statusLookup[stat] + "\n"));
-  Object.keys(player.statuses).forEach(stat => currentStatuses = currentStatuses.concat(player.name + " " + statusLookup[stat] + "\n"))
+  Object.keys(target.statuses).forEach(stat => currentStatuses = currentStatuses.concat(target.name + statusLookup[stat] + "\n"));
+  Object.keys(player.statuses).forEach(stat => currentStatuses = currentStatuses.concat(player.name + statusLookup[stat] + "\n"))
   let newHud = `ROUND ${turnNumber}: ${currentTurn.toUpperCase()}'S TURN!
 ${target.name}: ${healthBar(target.hp, target.maxHp)}
 ${player.name}: ${heart} HP: ${player.hp}/${player.maxHp} ${heart} | \u2728 MP: ${player.mp}/${player.maxMp} \u2728 | OP: ${opBar(player.op)}
@@ -1102,6 +1102,9 @@ function getName() {
     return getName();
   } else if (name.length > 16) {
     alert("Please enter a name that is 16 characters or less...")
+    return getName();
+  } else if (name === "") {
+    alert("Please enter a name...")
     return getName();
   }
 
