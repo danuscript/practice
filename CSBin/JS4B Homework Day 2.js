@@ -796,7 +796,7 @@ const fleeEx = function() {
 
 const jeopardize = {
   name: "JEOPARDIZE",
-  description: "Break GUARDED, or lower an enemy's physical DEF for three turns.",
+  description: "Break GUARD, or lower an enemy's physical DEF for three turns.",
   action: "You lowered the enemy's guard!",
   execute: jeopardizeEx,
 }
