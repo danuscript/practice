@@ -1110,7 +1110,7 @@ function getName() {
 
   let nameConfirmation = confirm(`Your name is: ${name}
 
-is this correct?`)
+Is this correct?`)
   if (!nameConfirmation) return getName();
   return name
 }
