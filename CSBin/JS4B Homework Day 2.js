@@ -72,10 +72,10 @@ const boss = {
 }
 
 const bossDefaults = {
-  hp: 100,
+  hp: 200,
   atk: 1.0,
   def: 1.0,
-  maxHp: 100,
+  maxHp: 200,
   multiplier: 1.0,
   fireDef: 1.10,
   iceDef: 0.90,
@@ -95,7 +95,7 @@ const bossFireballEx = function() {
   if (player.statuses["currentlyPoisoned"]) {
     delete player.statuses["currentlyPoisoned"]
   }
-  let baseDmg = target.mag * 20;
+  let baseDmg = target.mag * 15;
   let damage = Math.round(baseDmg / player.fireDef);
   player.hp -= damage;
   if (player.hp < 0) player.hp = 0;
@@ -289,13 +289,13 @@ boss.moves["2"] = {
 
 const player = {
   name: "link",
-  hp: 100,
+  hp: 120,
   atk: 1.0,
   def: 1.0,
   fireDef: 1.0,
   iceDef: 1.0,
   mag: 1.0,
-  maxHp: 100,
+  maxHp: 120,
   mp: 60,
   maxMp: 60,
   op: 0,
@@ -304,13 +304,13 @@ const player = {
 }
 
 const playerDefaults = {
-  hp: 100,
+  hp: 120,
   atk: 1.0,
   def: 1.0,
   fireDef: 1.0,
   iceDef: 1.0,
   mag: 1.0,
-  maxHp: 100,
+  maxHp: 120,
   mp: 60,
   maxMp: 60,
   op: 0,
