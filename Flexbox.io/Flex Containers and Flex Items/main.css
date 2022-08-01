@@ -1,3 +1,4 @@
+/* align body content with the window borders */
 body {
     margin: 0px;
 }
@@ -26,6 +27,16 @@ body {
 
 /* flexbox starts here */
 .container {
+    /* add border */
     border: 10px solid goldenrod;
+    
+    /* keep border within height (must set height) */
+    box-sizing: border-box;
+    height:100vh;
+
+    /* responsively take up whole window width and display content as flex items */
     display: flex;
+
+    /* responsively adjust with content length and display content as flex items */
+    /* display: inline-flex */
 }
