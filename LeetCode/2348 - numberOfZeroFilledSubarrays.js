@@ -35,7 +35,9 @@ const zeroFilledSubarray0 = function(nums) {
     return total;
 }
 
-// approach 2:
+// approach 2
+
+// algorithm: each number zero represents one possible subarray, and an additional subarray for each preceding 0
 
 // store previous zeroes in a variable, [prev = 0]
 // store total in a variable [total = 0]
