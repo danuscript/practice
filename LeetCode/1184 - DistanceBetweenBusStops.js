@@ -33,6 +33,7 @@ while (stop !== destination) {
         console.log(`Moving to stop ${stop}. Cost: ${distance[distance.length - 1]}.`)
     } else {
         // add current value to clock variable
+        
         clock += distance[stop]
         stop++; 
         console.log(`Moving to stop ${stop}. Cost: ${distance[stop]}.`)
