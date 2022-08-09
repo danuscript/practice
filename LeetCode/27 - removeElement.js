@@ -1,3 +1,7 @@
+// REMOVE ELEMENT
+
+// approach 1: two pointers (on-the-spot implementation)
+
 // expected input: array, num
 // expected output: array, length
 // expample input: nums = [0,1,2,2,3,0,4,2], val = 2
@@ -64,7 +68,7 @@
 //     move [L] to the right
 
 // declare a function "removeElement" that accepts the specified params
-var removeElement = function(nums, val) {
+var removeElement0 = function(nums, val) {
     // declare pointers and length prop
     let l = 0; 
     let r = nums.length - 1;
@@ -102,3 +106,16 @@ var removeElement = function(nums, val) {
     }
     return nums, len;
 };
+
+// approach 2: two pointers (optimized implementation)
+
+// start two pointers [i] and [j] at index 0
+//   pointer [i] marks the index to change and moves one at a time
+//   pointer [j] marks the index to copy to [i], and moves forward as necessary
+// i moves one at a time, j skips forward as necessary
+// for each element in array
+//   if the element at arr[i] isn't [val]
+//     copy arr[i] to arr[j]
+//     move both pointers forward
+//   else, if the element at arr[i] is the 
+//     move j forward and check again
