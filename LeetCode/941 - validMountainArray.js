@@ -35,9 +35,15 @@
 //     else if arr[i + 1] > arr[i]
 //       return false
 
-function mountainArray(arr) {
-  if (arr.length < 3) return false;
+function validMountainArray(arr) {
   let increase = true;
+    
+  // throw out arrays that are too short
+  if (arr.length < 3) return false;
+    
+  // throw out arrays with no initial increase or ending decrease
+  if (arr[0] > arr[1] || arr[arr.length - 1] > arr[arr.length - 2]) return false;
+      
   for (let i = 0; i < arr.length; i++) {
     if (increase) {
       if (arr[i + 1] === arr[i]) {
@@ -57,9 +63,3 @@ function mountainArray(arr) {
   }
 }
 
-const test1 = [0, 2, 3, 4, 5, 2, 1, 0]; // return true 
-const test2 = [0, 2, 3, 3, 5, 2, 1, 0]; // return false
-const test3 = [0, 2, 3, 4, 5]; // return false
-console.log(mountainArray(test1));
-console.log(mountainArray(test2));
-console.log(mountainArray(test3))
