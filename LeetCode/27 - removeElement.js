@@ -110,12 +110,24 @@ var removeElement0 = function(nums, val) {
 // approach 2: two pointers (optimized implementation)
 
 // start two pointers [i] and [j] at index 0
-//   pointer [i] marks the index to change and moves one at a time
-//   pointer [j] marks the index to copy to [i], and moves forward as necessary
-// i moves one at a time, j skips forward as necessary
+//   pointer [p1] marks the index to write to and moves as necessary
+//   pointer [p2] reads elements to find valid elements to copy, and moves one at a time
 // for each element in array
-//   if the element at arr[i] isn't [val]
-//     copy arr[i] to arr[j]
+//   if the element at arr[p2] isn't [skip]
+//     copy arr[p2] to arr[p1]
 //     move both pointers forward
-//   else, if the element at arr[i] is the 
-//     move j forward and check again
+//   else, if the element at arr[p2] is [skip]
+//     move [p2] forward and check again
+// break when [p2] reaches the end
+// return the length of valid elements, [p1]
+
+function removeElement(arr, skip) {
+    let p1 = 0;
+    for (let p2 = 0; p2 < arr.length; p2++) {
+        if (arr[p2] != skip) {
+            arr[p1] = arr[p2]
+            p1++;
+        }
+    }
+    return p1;
+}
