@@ -35,7 +35,7 @@
 //     else if arr[i + 1] > arr[i]
 //       return false
 
-function validMountainArray(arr) {
+function validMountainArray0(arr) {
   let increase = true;
     
   // throw out arrays that are too short
@@ -61,5 +61,24 @@ function validMountainArray(arr) {
       }
     }
   }
+}
+
+function validMountainArray(arr) {
+    let i = 0;
+    // while there's a next element && the next element is an increase,
+    while (i + 1 < arr.length && arr[i + 1] > arr[i]) {
+        // walk up:
+        i++;
+    }
+    // if we've stopped on the first or last element, this isn't a valid array
+    if (i == 0 || i == arr.length - 1) return false;
+    
+    // while there's a next element && the next element is a decrease,
+    while (i + 1 < arr.length && arr[i + 1] < arr[i]) {
+        //walk down:
+        i++;
+    }
+    // if we've stopped on the last element, this array is valid
+    return (i === arr.length - 1)    
 }
 
