@@ -27,7 +27,7 @@
 
 // helper function: [transfer(num1, num2)]
 //   capture the [last] digit of the first number [num1 % 10]
-//   add it to the end of hte second number [num2 = num * 10 + last]
+//   add it to the end of the second number [num2 = num * 10 + last]
 //   remove the last digit of first number [num2 = Math.floor(num2 / 10)]
 
 function transfer(num1, num2) {
