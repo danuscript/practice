@@ -9,7 +9,7 @@
 //   [remove] === boolean to track whether we're adding/removing digits from [a]
 
 // recursive case 1: we're removing digits [remove === true] and there are digits left [a >= 10]
-//   conosle.log the number [a]
+//   console.log the number [a]
 //   tranfer digit from [a] to [b]: [transfer(a, b)]
 
 // base case 1: we're removing digits [remove === true] but there are no digits left [a < 10]
