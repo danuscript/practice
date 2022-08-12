@@ -46,21 +46,49 @@ var findMaxConsecutiveOnes0 = function(nums) {
     return totalMax;
 };
 
-// [1, 1, 0, 1, 1, 0, 1, 1, 1, 1]
+// approach 2:
+
+// [1,0,1,1,0,1,0,0,1,1,1]
+
+// high level approach:
+  // iterate through the array, counting ones
+  // if one is encountered, add one to current count
+  // if zero is encountered
+    // stop the count and submit the number
+    // start the count from the end of the previous zero, adding the current zero
+        // current count = current index - index of last zero
+        // "adding the current zero":
+          // index = places counted - 1 (relationship between index and length property)
+          // subtracting index = subtracting places counted but adding one
+
+// declare a function findMax that accepts an array as a parameter
+// keep track of three variables:
+  // prevZero, the last index that we encountered a zero
+  // currMax, the current maximum consecutive ones that we've encountered;
+  // totMax, the biggest maximum we've seen so far
+// iterate through array
+  // if the current value is a 1
+    // update the current max
+  // otherwise, if the current value is 0
+    // update the totalMax if the currMax is bigger
+    // reset the currMax to the current index minus the previous zero's index
+    // update prevZero with index of current zero
+// update the totMax one final time
+// return the totMax
 
 function findMaxConsecutiveOnes(arr) {
-    let prevSum, currSum, maxOnes;
-    prevSum = currSum = maxOnes = 0;
-    arr.forEach((el) => {
-        console.log(prevSum, currSum, maxOnes)
-        if (el === 1) {
-            currSum++;
+    let curr = 0;
+    let max = 0;
+    let last = -1;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === 1) {
+            curr++;
+        } else {
+            max = Math.max(max, curr);
+            curr = i - last;
+            last = i;
         }
-        else {
-            maxOnes = Math.max(maxOnes, prevSum + currSum)
-            prevSum = currSum + 1;
-            currSum = 0;
-        }
-    })
-    return Math.max(maxOnes, prevSum + currSum)
+    }
+    max = Math.max(max, curr)
+    return max;
 }
