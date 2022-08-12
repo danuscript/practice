@@ -1,184 +1,67 @@
-// CASCADE 
-
-// expected input: string
-// expected output: console.log strings
-
-// approach:
-// track a counter starting with string.length
-// base case: counter = 0
-
-
-
-function cascade(str, counter = str.toString().length, arr = []) {
-    if (counter == 0) {
-        arr.reduce((a, b) => {
-            a = a + b;
-            console.log(a)
-            return a;
-        })
-    } else {
-        console.log(str.toString().slice(0, counter))
-        arr.unshift(str.toString()[counter - 1])
-        return cascade(str, counter - 1, arr);
-    }
-}
-
-cascade(12345
-        
-//Create a function prioritize that accepts an array and a callback. The callback will return either true or false. prioritize will iterate through the array and perform the callback on each element, and return a new array, where all the elements that yielded a return value of true come first in the array, and the rest of the elements  come second.
-
-// expected input: array, cb
-// expected output: new array
-
-// approach: forEach
-// forEach's callback will perform as follows
-//   if passing in current element to cb yields truthy
-		// unshift this into output array
-//  if passing in current element to cb yields falsy
-    // push this into output array
-
-function prioritize(arr, cb) {
-  let outArr = [];
-  arr.forEach((el) => {
-    if (cb(el)) outArr.unshift(el);
-    if (!cb(el)) outArr.push(el);
-  })
-  return outArr;
-}
-
-// Uncomment these to check your work!
-function startsWithS(str) { return str[0].toLowerCase() === 's'; }
-const tvShows = ['curb', 'rickandmorty', 'seinfeld', 'sunny', 'friends']
-// console.log(prioritize(tvShows, startsWithS)); // should log: ['seinfeld', 'sunny', 'curb', 'rickandmorty', 'friends']
-
-
-//Create a function hobbyTracker that takes an array of hobbies as a parameter and creates a cache object with each hobby as a key. hobbyTracker should return a function that takes a string representing the hobby and an integer representing how many hours practiced as parameters.
-
-//When the returned function is invoked, it should update the cache object adding the value of the passed in integer to the cache at the key corresponding with the passed in 'hobby' then should return the updated cache object. If the returned function is invoked with no arguments, it should resetall values in the cache object to zero and return the string 'tracker has been reset!'
-
-
-// expected input (outer): array
-// expected output (outer): function
-
-// expected input (inner): string, number
-// expected output (inner): cache property, or string
-
-// approach: closures
-
-// declare a cache object
-// iterate through array and add each element to cache
-// declare a new function "tracked" that accepts specified args
-// return function
-
-// set up a control flow 
-// if arguments are passed in,
-  // update totals in cache object
-	// return cache
-// if no arguments are passed in
- 	// iterate through cache
-		// replace all values with "0"
-		// output string
-
-
-function hobbyTracker(hobbies) {
-  const cache = {};
-  hobbies.forEach((el) => cache[el] = 0)
-  function tracked(str, num) {
-    if (str !== undefined) {
-      cache[str] += num;
-      return cache;
-    } else {
-      Object.keys(cache).forEach((el) => cache[el] = 0)
-      return 'tracker has been reset!';
-    }
-  }
-  return tracked;
-}
-
-
-// // Uncomment the code below to check your code:
-// const updateHobbies = hobbyTracker(['yoga', 'baking', 'piano']);
-// updateHobbies('yoga', 2);
-// updateHobbies('baking', 4);
-// updateHobbies('yoga', 1);
-// console.log(updateHobbies('piano', 2)); // --> { yoga: 3, baking: 4, piano: 2 }
-// console.log(updateHobbies()); // --> 'tracker has been reset!'
-// console.log(updateHobbies('baking', 1)); // --> { yoga: 0, baking: 1, piano: 0}
-
-
-//Write a function cascade that takes a positive integer and prints a cascade of this integer. Hint - this very challenging problem can be solved with and without string manipulation!
-
-// cascade(12345) should print
-
-// 12345
-// 1234
-// 123
-// 12
-// 1
-// 12
-// 123
-// 1234
-// 12345
-
 // expected input: number
 // expected output: console.logs
 
 // approach: recursion
 
-// base case: 
-// input number has no more numbers to remove
+// default parameters:
+//   [a] === number to output
+//   [b] === number to hold digits that get added to/removed from [a]
+//   [remove] === boolean to track whether we're adding/removing digits from [a]
 
-// base case 2: 
-// input number reaches it's original value
+// recursive case 1: we're removing digits [remove === true] and there are digits left [a >= 10]
+//   conosle.log the number [a]
+//   tranfer digit from [a] to [b]: [transfer(a, b)]
 
-// recursive case: 
-// console.log current value of the number
-// "remove" a number from the end of input number
-// "store" this removed number
-// call self recursively, passing in truncated number as argument
+// base case 1: we're removing digits [remove === true] but there are no digits left [a < 10]
+//   console.log the current number [a]
+//   switch to recursive case 2 and start adding digits [remove = false]
 
-// new base case: store reaches 0 && number > 10
+// recursive case 2: we're adding digits [remove === false] and there are digits left [b > 0]
+//   transfer digit from [b] to [a]: [transfer(a, b)] 
+//   console.log the new number [a]
 
-function cascade(number, store = 0, remove = true) {
-	// base case 1:
-  if (number < 10 && remove === true) {
-    // start adding numbers back in from store
-    console.log(number)
+// base case 2: we're removing digits [remove === false] and there are no digits left [b === 0]
+//   edge case: original number ends in zero [number % 10 === 0]
+//     add a zero and log one final number to the console [a * 10]
+//   end program [return null]
+
+// helper function: [transfer(num1, num2)]
+//   capture the [last] digit of the first number [num1 % 10]
+//   add it to the end of hte second number [num2 = num * 10 + last]
+//   remove the last digit of first number [num2 = Math.floor(num2 / 10)]
+
+function transfer(num1, num2) {
+  let last = num1 % 10;
+  num2 = num2 * 10 + last;
+  num1 = Math.floor(num1 / 10)
+  return [num1, num2]
+}
+
+function cascade(number, a = number, b = 0, remove = true) {
+  // base case 1:
+  if (a < 10 && remove === true) {
+    console.log(a)
     remove = false;
   }
-  if (remove === false && store === 0) {
+  // base case 2:
+  if (!remove && b === 0) {
+    // edge case:
+    if (number % 10 === 0)
+    console.log(a * 10)
     return null;
   }
-  if (remove === false && store > 0) {
-    let last = store % 10
-    number = number * 10 + last
-    store = Math.floor(store / 10)
-    console.log(number)
-    cascade(number, store, remove)
+  // recursive case 1:
+  if (a >= 10 && remove) {
+    console.log(a)
+    let [a1, b1] = transfer(a, b)
+    cascade(number, a1, b1, remove)
   }
-  
-  if (number > 10 && remove) {
-    console.log(number)
-    let last = number % 10
-    // add last to our store
-    store = store * 10 + last
-    // remove last from our output
-    number = Math.floor(number / 10);
-    // update counter
-    cascade(number, store)
-}
+  // recursive case 2:
+  if (!remove && b > 0) {
+    let [b1, a1] = transfer(b, a)
+    console.log(a1)
+    cascade(number, a1, b1, remove)
+  }
 }
 
 cascade(12345)
-
-
-// // Uncomment to test your work!
-// cascade(111)
-// // should print
-// /*
-// 111
-// 11
-// 1
-// 11
-// 111
-// */
