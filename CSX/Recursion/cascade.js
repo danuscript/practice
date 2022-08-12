@@ -39,7 +39,7 @@ function transfer(num1, num2) {
 
 function cascade(number, a = number, b = 0, remove = true) {
   // base case 1:
-  if (a < 10 && remove === true) {
+  if (a < 10 && remove) {
     console.log(a)
     remove = false;
   }
