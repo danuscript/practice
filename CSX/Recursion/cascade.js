@@ -17,7 +17,7 @@
 //   switch to recursive case 2 and start adding digits [remove = false]
 
 // recursive case 2: we're adding digits [remove === false] and there are digits left [b > 0]
-//   transfer digit from [b] to [a]: [transfer(a, b)] 
+//   transfer digit from [b] to [a]: [transfer(b, a)] 
 //   console.log the new number [a]
 
 // base case 2: we're removing digits [remove === false] and there are no digits left [b === 0]
