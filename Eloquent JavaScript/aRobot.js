@@ -18,7 +18,7 @@ function buildGraph(edges) {
     if (graph[from] == null) {
       // create the property and assign it a value of an array with string2
       graph[from] = [to]
-    // otehrewise, if object already has property "string1"
+    // otherwise, if object already has property "string1"
     } else {
       // push string2 into property [string1]'s value array
       graph[from].push(to)
@@ -135,7 +135,8 @@ function runRobot(state, robot, memory) {
     // if there are no more parcels left, 
     if (state.parcels.length == 0) {
       // end loop
-      console.log(`Done in ${turn} turns`);
+      // console.log(`Done in ${turn} turns`);
+      return turn;
       break;
     }
     // else, if there are still parcels
@@ -146,7 +147,7 @@ function runRobot(state, robot, memory) {
     // update the memory
     memory = action.memory;
     // note that we've moved to the robot's direction
-    console.log(`Moved to ${action.direction}`)
+    // console.log(`Moved to ${action.direction}`)
   }
 }
 
@@ -187,4 +188,95 @@ function routeRobot(state, memory) {
 }
 
 // run a simulation, starting with a random parcel list and routeBot
-runRobot(VillageState.random(), routeRobot, [])
+// runRobot(VillageState.random(), routeRobot, [])
+
+// this function takes a graph and a desired start/end location
+function findRoute(graph, from, to) {
+  // declare array containing one object with initial location and route
+    // we are at the start location, and the route is currently empty
+    // this array holds potential locations and the routes leaidng there
+  let work = [{at: from, route: []}]
+  // repeat the following operation until i reaches array's length:
+  for (let i = 0; i < work.length; i++) {
+    // assign the current location/route to two variables
+    let {at, route} = work[i];
+    // iterate through the current location's available destinations
+    for (let place of graph[at]) {
+      // if there's a road from current destination to desired location
+        // add it to our route
+      if (place == to) return route.concat(place);
+      // if our array doesn't already have an object that's at that place
+      if (!work.some(w => w.at == place)) {
+        // push an object into our array with it's information
+        work.push({at: place, route: route.concat(place)})
+      }
+    }
+  }
+}
+
+function goalOrientedRobot({place, parcels}, route) {
+  // if route is empty
+  if (route.length == 0) {
+    // take the first parcel from the passed-in list
+    let parcel = parcels[0];
+    // if the parcel's location isn't where we are now
+    if (parcel.place != place) {
+      // create a route to it's pikcup spot
+      route = findRoute(roadGraph, place, parcel.place)
+    // otherwise, if the parcel is at our current location
+    } else {
+      // create a route to it's destination
+      route = findRoute(roadGraph, place, parcel.address)
+    }
+  }
+  // move to current route destination, and remove it from upcoming memory
+  return {direction: route[0], memory: route.slice(1)}
+}
+
+// run a simulation, testing our "smarter" robot
+// runRobot(VillageState.random(), goalOrientedRobot, [])
+
+function compareRobots(robot1, memory1, robot2, memory2) {
+  let rob1Turns = 0;
+  let rob2Turns = 0;
+  for (let i = 0; i < 100; i++) {
+    const curr = VillageState.random();
+    rob1Turns += runRobot(curr, robot1, memory1);
+    rob2Turns += runRobot(curr, robot2, memory2)
+  }
+  return `Robot 1: ${Math.round(rob1Turns / 100)} average turns.
+Robot 2: ${Math.round(rob2Turns / 100)} average turns.`
+}
+
+// console.log(compareRobots(routeRobot, [], goalOrientedRobot, []))
+
+// find the package pick-up location with the shortest route
+// navigate there, dropping off packages on the way
+// if there are no packages to pick up, enter "delivery" mode
+
+function goalBot2({place, parcels}, route) {
+  // if route is empty:
+  if (route.length == 0) {
+    // are there packages that need to be picked up?
+    const pickup =  parcels.filter(p => p.place != place);
+    // if there are packages thath need to be picked up...
+    if (pickup.length >= 1) {
+      // console.log("Packages left for pickup: ", pickup)
+      // figure out a route to each one
+      const routes = pickup.map(p => findRoute(roadGraph, place, p.place))
+      // pick the shortest route
+      route = routes.reduce((a, b) => a.length < b.length ? a : b)
+    // otherwise, if there are no packages that need to be picked up
+    } else {
+      // figure out a route to each one
+      const routes2 = parcels.map(p => findRoute(roadGraph, place, p.address))
+      // pick the shortest route
+      route = routes2.reduce((a, b) => a.length < b.length ? a : b)
+    }
+  }
+  // after updating route, or if there are remaining route destinations:
+  // move to current route destination, and remove it from upcoming memory
+  return {direction: route[0], memory: route.slice(1)}
+}
+
+console.log(compareRobots(routeRobot, [], goalBot2, []))
