@@ -1,5 +1,5 @@
-def droids(arr):
-    for string in arr:
+def droids(characters):
+    for string in characters:
         if string == 'Droids':
             return 'Found Droids!'
     return "These are not the droids you're looking for."
