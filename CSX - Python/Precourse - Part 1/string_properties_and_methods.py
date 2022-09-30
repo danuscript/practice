@@ -1,9 +1,9 @@
 hometown = 'New York City'
-favAlbum = 'The Rise and Fall of Ziggy Stardust and the Spiders From Mars'
+fav_album = 'The Rise and Fall of Ziggy Stardust and the Spiders From Mars'
 
 count = len(hometown)
-upper = favAlbum.upper()
-lower = favAlbum.lower()
+upper = fav_album.upper()
+lower = fav_album.lower()
 
 print(count)
 print(upper)
