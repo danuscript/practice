@@ -1,8 +1,5 @@
 def multi_map(vals, cbs):
-    out = {}
-    for val in vals:
-        out[val] = [cb(val) for cb in cbs]
-    return out
+    return { key: [cb(key) for cb in cbs] for key in vals }
 
 def uppercaser(s):
     return s.upper()
