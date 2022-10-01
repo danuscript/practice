@@ -5,5 +5,5 @@ class personStore():
     def greet(self):
         print('hello')
 
-person_store = personStore()
-person_store.greet()
+person = personStore()
+person.greet()
