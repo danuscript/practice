@@ -1,9 +1,5 @@
 def dict_of_matches(list1, list2, cb):
-    out = {}
-    for i, v in enumerate(list1):
-        if cb(v) == list2[i]:
-            out[v] = list2[i]
-    return out
+    return { key: list2[i] for i, key in enumerate(list1) if cb(key) == list2[i] }
 
 list1 = ['hi', 'howdy', 'bye', 'later', 'hello']
 list2 = ['HI', 'Howdy', 'BYE', 'later', 'HELLO']
