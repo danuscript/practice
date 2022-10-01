@@ -1,6 +1,6 @@
 class personStore():
     def __init__(self, name, age):
-        self.name = name
+        self.name = name 
         self.age = age
 
     def greet(self):
