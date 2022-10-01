@@ -1,8 +1,5 @@
 def list_to_dict(ls, cb):
-    out = {}
-    for x in ls:
-        out[x] = cb(x)
-    return out
+    return { key: cb(key) for key in ls }
 
 list_of_strings = ['beer', 'glue']
 
