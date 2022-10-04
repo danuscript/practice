@@ -1,11 +1,8 @@
 def subtract_two(x):
     return x - 2
 
-def map(list, cb):
-    output = []
-    for x in list:
-        output.append(cb(x))
-    return output
+def map(ls, cb):
+    return [cb(x) for x in ls]
 
 print(type(subtract_two))
 print(type(map))
