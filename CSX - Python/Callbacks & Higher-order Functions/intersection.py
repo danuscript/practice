@@ -1,9 +1,9 @@
 def intersection(lists):
-    common = set(lists[0])
+    common = lists[0].copy()
     for ls in lists[1:]:
-        common = common.intersection(set(ls))
-    return list(common)
-
+        common = [x for x in ls if x in common]
+    return common
+    
 list1 = [5, 10, 15, 20]
 list2 = [15, 88, 1, 5, 7]
 list3 = [1, 10, 15, 5, 20]
