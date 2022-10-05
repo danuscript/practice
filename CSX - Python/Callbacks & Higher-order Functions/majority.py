@@ -1,5 +1,5 @@
 def majority(ls, cb):
-    return len([x for x in ls if cb(x)]) > len(ls) / 2
+    return sum(1 for x in ls if cb(x)) > len(ls) / 2
 
 def is_odd(n):
     return n % 2 == 1
