@@ -1,20 +1,17 @@
-def average():
-    total_sum = 0
-    count = 0
-    def inner(num = None):
-        nonlocal total_sum, count
-        if count == 0 and num is None:
-            return 0
-        if num is not None:
-            count += 1
-            total_sum += num
-        return total_sum // count
+def make_func_tester(arr_of_tests):
+    def inner(cb):
+        return not any(cb(x[0]) != x[1] for x in arr_of_tests)
     return inner
 
-avg_so_far = average()
-print(avg_so_far()) # -> 0
-print(avg_so_far(4)) # -> 4
-print(avg_so_far(8)) # -> 6
-print(avg_so_far()) # -> 6
-print(avg_so_far(12)) # -> 8
-print(avg_so_far()) # -> 8
+cap_last_test_cases = [['hello', 'hellO'], ['goodbye', 'goodbyE'], ['howdy', 'howdY']]
+
+should_capitalize_last = make_func_tester(cap_last_test_cases)
+
+def cap_last_attempt_1(s):
+    return s.upper()
+
+def cap_last_attempt_2(s):
+    return s[:-1] + s[-1].upper()
+
+print(should_capitalize_last(cap_last_attempt_1)) # -> False
+print(should_capitalize_last(cap_last_attempt_2)) # -> True
