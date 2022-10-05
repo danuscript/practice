@@ -7,7 +7,6 @@ def roll_call(names):
         else:
             print(names[i])
             i += 1
-
     return inner
 
 roll_caller = roll_call(['Victoria', 'Juan', 'Ruth'])
