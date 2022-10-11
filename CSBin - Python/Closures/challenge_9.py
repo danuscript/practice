@@ -2,9 +2,7 @@ def cycle_iterator(ls):
     i = -1
     def inner():
         nonlocal i
-        i += 1
-        if i >= len(ls):
-            i = 0
+        i = (i + 1) % len(ls)
         return ls[i]
     return inner
 
